@@ -81,6 +81,15 @@ auf "nicht verfügbar" (einschließlich eines optionalen Grunds für die Nichtve
 - Alle Datums-/Uhrzeitangaben müssen im UTC / ISO 8601-Vollzeitformat persistiert werden.
 
 ### Installation
+Vor der Installation muss die Authentifizierung mit der Adobe Berufsbildung Basel GitHub Organization eingerichtet werden.
+Dazu muss unter _GitHub Developer Settings_ in den persönlichen GitHub-Settings ein neues _Access Token_ für Scope `read:packages`  erstellt werden. Mit diesem kann folgender Befehl ausgeführt werden, um sich anzumelden:
+```
+npm login --scope @berufsbildung-basel --registry=https://npm.pkg.github.com
+```
+- Username: GitHub-Benutername
+- Password: Access Token
+- E-Mail: die mit GitHub registrierte E-Mail-Adresse
+
 ```
 npm install
 ```
