@@ -1,0 +1,39 @@
+{
+  "name": "ipa_jaeggi",
+  "description": "Julia's IPA project: Backend for Adobe Parking Reservation System",
+  "version": "0.0.1",
+  "author": "Julia Jaeggi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bluete-ch/ipa_jaeggi"
+  },
+  "bugs": {
+    "url": "https://github.com/bluete-ch/ipa_jaeggi/issues"
+  },
+  "homepage": "https://github.com/bluete-ch/ipa_jaeggi#readme",
+  "license": "Apache 2.0",
+  "scripts": {
+    "docs": "redocly build-docs ./node_modules/@berufsbildung-basel/parkit-spec/api.yml -o ./docs/index.html",
+    "docs:serve": "redocly preview-docs ./node_modules/@berufsbildung-basel/parkit-spec/api.yml",
+    "lint": "./node_modules/.bin/eslint .",
+    "start": "node ./bin/www",
+    "test": "nyc mocha --timeout 10000"
+  },
+  "devDependencies": {
+    "@berufsbildung-basel/parkit-spec": "0.0.3",
+    "@redocly/cli": "1.0.0-beta.120",
+    "chai": "4.3.7",
+    "chai-http": "4.3.0",
+    "mocha": "10.2.0",
+    "nyc": "15.1.0"
+  },
+  "dependencies": {
+    "cookie-parser": "1.4.4",
+    "debug": "2.6.9",
+    "express": "4.16.1",
+    "http-errors": "1.6.3",
+    "jade": "1.11.0",
+    "morgan": "1.9.1",
+    "mysql": "2.18.1"
+  }
+}
