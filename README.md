@@ -87,7 +87,7 @@ Dazu muss unter _GitHub Developer Settings_ in den persönlichen GitHub-Settings
 ```
 npm login --scope @berufsbildung-basel --registry=https://npm.pkg.github.com
 ```
-- Username: GitHub-Benutername
+- Username: GitHub-Benutzername
 - Password: Access Token
 - E-Mail: die mit GitHub registrierte E-Mail-Adresse
 
