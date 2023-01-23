@@ -60,7 +60,8 @@ auf "nicht verfügbar" (einschließlich eines optionalen Grunds für die Nichtve
 #### Reservierungen
 - Ein Parkplatz kann für einen halben oder einen ganzen Tag pro Datum reserviert werden
 - Ein halber Tag Reservierung ist entweder Mitternacht bis Mittag oder Mittag bis Mitternacht
-– Ein Benutzer kann bis zu zwei Wochen in die Zukunft reservieren
+-
+ Ein Benutzer kann bis zu zwei Wochen in die Zukunft reservieren
 - Ein Benutzer kann nicht mehr als 3 Reservierungen pro Woche haben. Reservierungen, die dafür gezählt werden, sind:
   - Nicht stornierte Reservierungen
   - Stornierte Reservierungen, die nach ihrer Startzeit storniert wurden
