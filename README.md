@@ -60,7 +60,8 @@ auf "nicht verfügbar" (einschließlich eines optionalen Grunds für die Nichtve
 #### Reservierungen
 - Ein Parkplatz kann für einen halben oder einen ganzen Tag pro Datum reserviert werden
 - Ein halber Tag Reservierung ist entweder Mitternacht bis Mittag oder Mittag bis Mitternacht
-– Ein Benutzer kann bis zu zwei Wochen in die Zukunft reservieren
+-
+ Ein Benutzer kann bis zu zwei Wochen in die Zukunft reservieren
 - Ein Benutzer kann nicht mehr als 3 Reservierungen pro Woche haben. Reservierungen, die dafür gezählt werden, sind:
   - Nicht stornierte Reservierungen
   - Stornierte Reservierungen, die nach ihrer Startzeit storniert wurden
@@ -86,7 +87,7 @@ Dazu muss unter _GitHub Developer Settings_ in den persönlichen GitHub-Settings
 ```
 npm login --scope @berufsbildung-basel --registry=https://npm.pkg.github.com
 ```
-- Username: GitHub-Benutername
+- Username: GitHub-Benutzername
 - Password: Access Token
 - E-Mail: die mit GitHub registrierte E-Mail-Adresse
 
