@@ -36,12 +36,12 @@ Berechtigungen: CRU(D/N)
 – C = Erstellen
 – R = Lesen
 – U = Aktualisieren (ändern)
-– D = Löschen oder N = Abbrechen
+– D = Löschen oder N = Stornieren
 
 | Rolle/Asset | Benutzer                    | Fahrzeuge          | Parkplätze   | Reservierungen           |
 |-------------|-----------------------------|--------------------|--------------|------------------------- |
 | Mitarbeiter | ---- (außer selbst: -RU-) | ---- (außer eigen: CRUD) | R--- | R--- (außer eigene: CRUN) |
-| Administratoren | -RU- | ROH | ROH | CRUN |
+| Administratoren | -RU- | CRUD | CRUD | CRUN |
 | Anonym | ---- | ---- | ---- | ---- |
 
 ### Regeln
