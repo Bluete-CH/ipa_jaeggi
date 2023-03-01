@@ -1,0 +1,15 @@
+{
+  "reporter": [
+    "lcov",
+    "text",
+    "text-summary"
+  ],
+  "exclude": [
+    "app.js",
+    "bin/www"
+  ],
+  "check-coverage": true,
+  "lines": 73,
+  "branches": 100,
+  "statements": 73
+}
