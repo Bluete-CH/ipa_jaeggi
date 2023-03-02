@@ -1,7 +1,8 @@
-//Require the dev-dependencies
+/* eslint-env mocha */
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../app.js');
+const server = require('../app');
 
 const { expect } = chai;
 

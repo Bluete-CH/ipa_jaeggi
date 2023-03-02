@@ -1,8 +1,9 @@
 const express = require('express');
+
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/users', function(req, res, next) {
+router.get('/users', (req, res) => {
   // todo: get users from mysql
   const json = [
     {
