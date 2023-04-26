@@ -18,4 +18,6 @@ module.exports = (app) => {
 
   // Delete a vehicle
   router.delete('/:id', vehicle.delete);
+
+  app.use('api/vehicles', router);
 };
