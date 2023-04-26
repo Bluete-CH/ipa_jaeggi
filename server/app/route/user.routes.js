@@ -8,19 +8,19 @@ module.exports = (app) => {
   router.get('/', user.findAll);
 
   // Update a user
-  router.patch('/update/:id', user.updateById);
+  router.patch('/users/:id', user.updateById);
 
   // Get a user
   router.get('/:id', user.findById);
 
   // Change role of user
-  router.put('/role/:id', user.changeRole);
+  router.put('/:id/change_role', user.changeRole);
 
   // Disable a user
-  router.put('/disable/:id', user.disableUser);
+  router.put('/:id/disable', user.disableUser);
 
   // Enable a user
-  router.put('/enable/:id', user.enableUser);
+  router.put('/:id/enable', user.enableUser);
 
-  app.use('api/user', router);
+  app.use('api/users', router);
 };
