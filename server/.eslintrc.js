@@ -10,6 +10,7 @@ module.exports = {
     requireConfigFile: false,
   },
   rules: {
+    'no-console': 'off',
     'no-param-reassign': [2, { props: false }],
   },
 };
