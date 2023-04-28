@@ -56,7 +56,7 @@ User.findById = (id) => new Promise((resolve, reject) => {
   );
 });
 
-User.changeRole = (role, id) => new Promise((resolve, reject) => {
+User.changeRole = (id, role) => new Promise((resolve, reject) => {
   sql.query(
     'UPDATE tbl_user SET role = ? WHERE userId = ?',
     [role, id],

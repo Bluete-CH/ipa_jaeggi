@@ -11,6 +11,7 @@ module.exports = {
   },
   rules: {
     'no-console': 'off',
+    'no-prototype-builtins': 'off',
     'no-param-reassign': [2, { props: false }],
   },
 };
