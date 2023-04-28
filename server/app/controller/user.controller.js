@@ -39,9 +39,12 @@ exports.updateById = async (req, res) => {
       res.status(500).send({ message: `Some errors occurred: ${errorMessages}` });
       return;
     }
-    const result = await User.updateById(req.params.id, {
-      preferred_language: req.body.preferred_language,
-    });
+    const result = await User.updateById(
+      req.params.id,
+      {
+        preferred_language: req.body.preferred_language,
+      },
+    );
     res.send({ message: result, status: true });
   } catch (e) {
     res.status(500).send({ message: e, status: false });
@@ -87,9 +90,12 @@ exports.changeRole = async (req, res) => {
       res.status(500).send({ message: `Some errors occurred: ${errorMessages}` });
       return;
     }
-    const result = await User.updateById(req.params.id, {
-      role: req.body.role,
-    });
+    const result = await User.updateById(
+      req.params.id,
+      {
+        role: req.body.role,
+      },
+    );
     res.send({ message: result, status: true });
   } catch (e) {
     res.status(500).send({ message: e, status: false });

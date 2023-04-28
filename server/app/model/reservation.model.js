@@ -2,11 +2,11 @@ const sql = require('./db');
 
 const Reservation = {};
 
-Reservation.create = () => new Promise((resolve, reject) => {
+Reservation.create = (reservation) => new Promise((resolve, reject) => {
   const input = {
     parking_spot_id: reservation.parking_spot_id,
     user_id: reservation.user_id,
-    vehicle_id: reservtion.vehicle_id,
+    vehicle_id: reservation.vehicle_id,
     date: reservation.date,
     half_day: reservation.half_day,
     am: reservation.am,

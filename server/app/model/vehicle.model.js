@@ -2,7 +2,7 @@ const sql = require('./db');
 
 const Vehicle = {};
 
-Vehicle.create = () => new Promise((resolve, reject) => {
+Vehicle.create = (vehicle) => new Promise((resolve, reject) => {
   const input = {
     ev: vehicle.ev,
     license_plate_number: vehicle.license_plate_number,

@@ -2,7 +2,7 @@ const sql = require('./db');
 
 const ParkingSpot = {};
 
-ParkingSpot.create = () => new Promise((resolve, reject) => {
+ParkingSpot.create = (parkingSpot) => new Promise((resolve, reject) => {
   const input = {
     number: parkingSpot.number,
     charger_available: parkingSpot.charger_available,
