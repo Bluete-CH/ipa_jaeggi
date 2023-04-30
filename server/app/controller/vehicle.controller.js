@@ -100,7 +100,7 @@ exports.updateById = async (req, res) => {
       return;
     }
     const result = await Vehicle.updateById(
-      req.params,
+      req.params.id,
       {
         user_id: req.body.user_id,
         ev: req.body.ev,
