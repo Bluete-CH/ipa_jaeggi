@@ -116,7 +116,7 @@ exports.disableUser = async (req, res) => {
     const result = await User.disableUser(req.params.id);
     res.send({ message: result, status: true });
   } catch (e) {
-    res.status(500).send({ mesage: e, status: false });
+    res.status(500).send({ message: e, status: false });
   }
 };
 

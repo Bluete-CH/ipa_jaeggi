@@ -39,13 +39,22 @@ ParkingSpot.getAll = () => new Promise((resolve, reject) => {
   );
 });
 
-// TODO
-ParkingSpot.findByDate = () => new Promise((resolve, reject) => {
+ParkingSpot.findByDate = (rules) => new Promise((resolve, reject) => {
   sql.query(
-    'SELECT * FROM tbl_parking_spot WHERE',
+    'SELECT * FROM tbl_reservation AS reservation INNER JOIN tbl_parking_spot AS parkingSpot ON reservation.parking_spot_id = parkingSpot.parking_spot_id WHERE date = ? AND half_day = ? AND am = ?',
+    [
+      rules.date,
+      rules.half_day,
+      rules.am,
+    ],
     (err, res) => {
       if (err) {
         console.error('error: ', err);
+        reject(err);
+        return;
+      }
+      if (res.affectedRows === 0) {
+        console.error('No row with the given parameters found.');
         reject(err);
         return;
       }
@@ -55,13 +64,9 @@ ParkingSpot.findByDate = () => new Promise((resolve, reject) => {
   );
 });
 
-// TODO
-ParkingSpot.findToday = (date) => new Promise((resolve, reject) => {
+ParkingSpot.findToday = () => new Promise((resolve, reject) => {
   sql.query(
-    'SELECT * FROM tbl_parking_spot WHERE date = ?',
-    [
-      date,
-    ],
+    'SELECT * FROM tbl_reservation AS reservation INNER JOIN tbl_parking_spot AS parkingSpot ON reservation.parking_spot_id = parkingSpot.parking_spot_id WHERE date = CURRENT_DATE()',
     (err, res) => {
       if (err) {
         console.error('error: ', err);
@@ -69,7 +74,7 @@ ParkingSpot.findToday = (date) => new Promise((resolve, reject) => {
         return;
       }
       if (res.affectedRows === 0) {
-        console.error(`No row with the today's date ${date} found.`);
+        console.error('No row with the today\'s date found.');
         reject(err);
         return;
       }
@@ -192,4 +197,5 @@ ParkingSpot.setAvailable = (id) => new Promise((resolve, reject) => {
     },
   );
 });
+
 module.exports = ParkingSpot;
