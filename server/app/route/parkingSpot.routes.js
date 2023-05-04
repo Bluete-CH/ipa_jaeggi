@@ -3,32 +3,74 @@ const express = require('express');
 const router = express.Router();
 const parkingSpot = require('../controller/parkingSpot.controller');
 
+/**
+ * Defines all endpoints and the functions for the parkingSpot API
+ *
+ * @param {Object} app - The express object
+ * @module parkingSpotRoutes
+ */
 module.exports = (app) => {
-  // Create a new parking spot
+  /**
+   * Creates a new parking spot in the database
+   *
+   * @function
+   */
   router.post('/', parkingSpot.create);
 
-  // Get all parking spots
-  router.get('/', parkingSpot.findAll);
+  /**
+   * Gets all parking spots from the database
+   *
+   * @function
+   */
+  router.get('/', parkingSpot.getAll);
 
-  // Get available parking spots by date
+  /**
+   * Checks if a parking spot is available on given date
+   *
+   * @function
+   */
   router.get('/availability', parkingSpot.findByDate);
 
-  // List parking spots and any reservations + vehicles on today's date
+  /**
+   * Finds all parking spot that are reserved today
+   *
+   * @function
+   */
   router.get('/today', parkingSpot.findToday);
 
-  // Update a parking spot
+  /**
+   * Updates a parking spot by ID in the database
+   *
+   * @function
+   */
   router.patch('/:id', parkingSpot.updateById);
 
-  // Get a parking spot
+  /**
+   * Finds a parking spot by ID
+   *
+   * @function
+   */
   router.get('/:id', parkingSpot.findById);
 
-  // Remove a parking spot
+  /**
+   * Deletes a parking spot by ID
+   *
+   * @function
+   */
   router.delete('/:id', parkingSpot.delete);
 
-  // Set a parking spot unavailable
+  /**
+   * Sets a parking spot unavailable in the database
+   *
+   * @function
+   */
   router.put('/:id/set_unavailable', parkingSpot.setUnavailable);
 
-  // Set a parking spot available
+  /**
+   * Sets a parking spot available in the database
+   *
+   * @function
+   */
   router.put('/:id/set_available', parkingSpot.setAvailable);
 
   app.use('api/parking-spots', router);

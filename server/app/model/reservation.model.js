@@ -2,6 +2,19 @@ const sql = require('./db');
 
 const Reservation = {};
 
+/**
+ * Creates a new reservation in the database
+ *
+ * @function
+ * @param {object} reservation - A reservation object with properties
+ * @param {Array<int>} reservation.parking_spot_id - parking_spot_id is an array
+ * @param {Array<int>} reservation.user_id - user_id is an array
+ * @param {Array<int>} reservation.vehicle_id - vehicle_id is an array
+ * @param {string} reservation.date - date is a string
+ * @param {boolean} reservation.half_day - half_day is a boolean
+ * @param {boolean} reservation.am - am is a boolean
+ * @returns {Promise<object>} - A promise object, that includes the given properties
+ */
 Reservation.create = (reservation) => new Promise((resolve, reject) => {
   const input = {
     parking_spot_id: reservation.parking_spot_id,
@@ -28,6 +41,12 @@ Reservation.create = (reservation) => new Promise((resolve, reject) => {
   );
 });
 
+/**
+ * Gets all reservations from the database
+ *
+ * @function
+ * @returns {Promise<Array>} - A promise array, that includes an array with reservations
+ */
 Reservation.getAll = () => new Promise((resolve, reject) => {
   sql.query(
     'SELECT * FROM tbl_reservation',
@@ -43,6 +62,20 @@ Reservation.getAll = () => new Promise((resolve, reject) => {
   );
 });
 
+/**
+ * Updates a reservation in the database
+ *
+ * @function
+ * @param {int} id - id is an int
+ * @param {object} reservation - A reservation object with properties
+ * @param {Array<int>} reservation.parking_spot_id - parking_spot_id is an array
+ * @param {Array<int>} reservation.user_id - user_id is an array
+ * @param {Array<int>} reservation.vehicle_id - vehicle_id is an array
+ * @param {string} reservation.date - date is a string
+ * @param {boolean} reservation.half_day - half_day is a boolean
+ * @param {boolean} reservation.am - am is a boolean
+ * @returns {Promise<object>} - A promise object, that includes the given properties
+ */
 Reservation.updateById = (id, reservation) => new Promise((resolve, reject) => {
   sql.query(
     'UPDATE tbl_reservation SET parking_spot_id = ?, user_id = ?, vehicle_id = ?, date = ?, half_day = ?, am = ? WHERE reservation_id',
@@ -72,6 +105,13 @@ Reservation.updateById = (id, reservation) => new Promise((resolve, reject) => {
   );
 });
 
+/**
+ * Finds a reservation by ID in the database
+ *
+ * @function
+ * @param {int} id - id is an int
+ * @returns {Promise<object>} - A promise object, that includes the given properties
+ */
 Reservation.findById = (id) => new Promise((resolve, reject) => {
   sql.query(
     'SELECT * FROM tbl_reservation WHERE reservation_id = ?',
@@ -92,6 +132,13 @@ Reservation.findById = (id) => new Promise((resolve, reject) => {
   );
 });
 
+/**
+ * Sets a reservation as cancelled by ID in the database
+ *
+ * @function
+ * @param {int} id - id is an int
+ * @returns {Promise<object>} - A promise object, that includes the given properties
+ */
 Reservation.cancelById = (id) => new Promise((resolve, reject) => {
   sql.query(
     'UPDATE tbl_reservation SET cancelled = 1 WHERE reservation_id = ?',

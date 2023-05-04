@@ -3,23 +3,53 @@ const express = require('express');
 const router = express.Router();
 const user = require('../controller/user.controller');
 
+/**
+ * Defines all endpoints and the functions for the user API
+ *
+ * @param {Object} app - The express object
+ * @module parkingSpotRoutes
+ */
 module.exports = (app) => {
-  // Get all users
-  router.get('/', user.findAll);
+  /**
+   * Gets all users from the database
+   *
+   * @function
+   */
+  router.get('/', user.getAll);
 
-  // Update a user
+  /**
+   * Updates a user by ID in the database
+   *
+   * @function
+   */
   router.patch('/users/:id', user.updateById);
 
-  // Get a user
+  /**
+   * Finds a user by ID
+   *
+   * @function
+   */
   router.get('/:id', user.findById);
 
-  // Change role of user
+  /**
+   * Changes the role of a user in the database
+   *
+   * @function
+   */
   router.put('/:id/change_role', user.changeRole);
 
-  // Disable a user
+  /**
+   * Disables a user in the database
+   *
+   * @function
+   */
   router.put('/:id/disable', user.disableUser);
 
-  // Enable a user
+  /**
+   * Enables a user in the database
+   *
+   * @function
+   */
   router.put('/:id/enable', user.enableUser);
 
   app.use('api/users', router);

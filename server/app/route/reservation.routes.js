@@ -3,20 +3,42 @@ const express = require('express');
 const router = express.Router();
 const reservation = require('../controller/reservation.controller');
 
+/**
+ * Defines all endpoints and the functions for the reservation API
+ *
+ * @param {Object} app - The express object
+ * @module parkingSpotRoutes
+ */
 module.exports = (app) => {
   // Create a new reservation
   router.post('/', reservation.create);
 
-  // Get all reservations
-  router.get('/', reservation.findAll);
+  /**
+   * Gets all reservations from the database
+   *
+   * @function
+   */
+  router.get('/', reservation.getAll);
 
-  // Update a reservation
+  /**
+   * Updates a reservation by ID in the database
+   *
+   * @function
+   */
   router.patch('/:id', reservation.updateById);
 
-  // Get a reservation by Id
+  /**
+   * Finds a reservation by ID
+   *
+   * @function
+   */
   router.get('/:id', reservation.findById);
 
-  // Cancel a reservation
+  /**
+   * Sets a reservation as cancelled by ID
+   *
+   * @function
+   */
   router.put('/:id/cancel', reservation.cancelById);
 
   app.use('api/reservations', router);

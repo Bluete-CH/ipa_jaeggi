@@ -12,7 +12,7 @@ const User = require('../model/user.model');
 exports.getAll = async (req, res) => {
   try {
     const result = await User.getAll();
-    res.send({ message: result, status: true });
+    res.status(200).send({ message: result, status: true });
   } catch (e) {
     res.status(500).send({ message: e, status: false });
   }
