@@ -3,6 +3,36 @@ const sql = require('./db');
 const User = {};
 
 /**
+ * Logs a user in from the database
+ *
+ * @function
+ * @returns {Promise<Object>} - A promise object
+ */
+User.login = (user) => new Promise((resolve, reject) => {
+  const { username } = user;
+  sql.query(
+    'SELECT * FROM user WHERE username = ?',
+    [
+      username,
+    ],
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        reject(err);
+        return;
+      }
+      if (res.length) {
+        console.log('found user: ', res[0]);
+        resolve(res);
+      } else {
+        console.log('user not found: ', res[0]);
+        resolve(res);
+      }
+    },
+  );
+});
+
+/**
  * Gets all users from the database
  *
  * @function

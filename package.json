@@ -13,11 +13,11 @@
   "homepage": "https://github.com/bluete-ch/ipa_jaeggi#readme",
   "license": "Apache 2.0",
   "scripts": {
-    "docs": "redocly build-docs ./node_modules/@berufsbildung-basel/parkit-spec/api.yml -o app/docs/index.html",
-    "docs:serve": "redocly preview-docs ./node_modules/@berufsbildung-basel/parkit-spec/api.yml",
-    "lint": "./node_modules/.bin/eslint ..",
-    "start": "node app/bin/www",
-    "test": "nyc mocha --timeout 10000"
+    "docs": "server/node_modules/.bin/redocly build-docs ./node_modules/@berufsbildung-basel/parkit-spec/api.yml -o app/docs/index.html",
+    "docs:serve": "server/node_modules/.bin/redocly preview-docs ./node_modules/@berufsbildung-basel/parkit-spec/api.yml",
+    "lint": "node_modules/.bin/eslint ..",
+    "start": "node index.js",
+    "test": "server/node_modules/.bin/nyc mocha --timeout 10000"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -32,11 +32,13 @@
     "nyc": "15.1.0"
   },
   "dependencies": {
+    "bcryptjs": "2.4.3",
     "cookie-parser": "1.4.4",
     "debug": "2.6.9",
     "express": "4.16.1",
     "http-errors": "1.6.3",
     "jade": "1.11.0",
+    "jsonwebtoken": "9.0.0",
     "morgan": "1.9.1",
     "mysql": "2.18.1"
   }

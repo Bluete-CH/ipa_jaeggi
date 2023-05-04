@@ -2,15 +2,29 @@
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../../app');
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
+/**
+ * Tests the API endpoint vehicles.
+ * @function
+ * @name create
+ * @name getAll
+ * @name updateById
+ * @name findById
+ * @name delete
+ */
 describe('Vehicles', () => {
-  it.skip('Create a new vehicle', () => {
-    chai.request(server)
+  /**
+   * Tries to create a new vehicle
+   * @function
+   * @name sendPostRequest
+   * @returns {Promise} A promise that resolves to the response object.
+   */
+  it('Create a new vehicle', () => {
+    chai.request('http://localhost:2323')
       .post('/vehicles', {
         body: {
           ev: 0,
@@ -31,8 +45,14 @@ describe('Vehicles', () => {
       });
   });
 
-  it.skip('List all vehicles by userId', () => {
-    chai.request(server)
+  /**
+   * Tries to list all vehicles
+   * @function
+   * @name sendGetRequest
+   * @returns {Promise} A promise that resolves to the response object.
+   */
+  it('List all vehicles by userId', () => {
+    chai.request('http://localhost:2323')
       .get('/vehicles')
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -41,8 +61,14 @@ describe('Vehicles', () => {
       });
   });
 
-  it.skip('Update a vehicle', () => {
-    chai.request(server)
+  /**
+   * Tries to update a vehicle
+   * @function
+   * @name sendPatchRequest
+   * @returns {Promise} A promise that resolves to the response object.
+   */
+  it('Update a vehicle', () => {
+    chai.request('http://localhost:2323')
       .patch('/vehicles/1', {
         body: {
           ev: 1,
@@ -55,8 +81,14 @@ describe('Vehicles', () => {
       });
   });
 
-  it.skip('Get a vehicle', () => {
-    chai.request(server)
+  /**
+   * Tries to get a vehicle
+   * @function
+   * @name sendGetRequest
+   * @returns {Promise} A promise that resolves to the response object.
+   */
+  it('Get a vehicle', () => {
+    chai.request('http://localhost:2323')
       .get('/vehicles/1')
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -65,8 +97,14 @@ describe('Vehicles', () => {
       });
   });
 
-  it.skip('Delete a vehicle', () => {
-    chai.request(server)
+  /**
+   * Tries to delete a vehicle
+   * @function
+   * @name sendDeleteRequest
+   * @returns {Promise} A promise that resolves to the response object.
+   */
+  it('Delete a vehicle', () => {
+    chai.request('http://localhost:2323')
       .delete('/vehicles/1')
       .end((err, res) => {
         expect(res.status).to.equal(200);

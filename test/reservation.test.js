@@ -2,15 +2,29 @@
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../../app');
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
 
+/**
+ * Tests the API endpoint reservations.
+ * @function
+ * @name create
+ * @name getAll
+ * @name updateById
+ * @name findById
+ * @name cancelled
+ */
 describe('Reservations', () => {
-  it.skip('Create a new reservation', () => {
-    chai.request(server)
+  /**
+   * Tries to create a new reservation
+   * @function
+   * @name sendPostRequest
+   * @returns {Promise} A promise that resolves to the response object.
+   */
+  it('Create a new reservation', () => {
+    chai.request('http://localhost:2323')
       .post('/reservations', {
         body: {
           cancelled: 0,
@@ -35,8 +49,14 @@ describe('Reservations', () => {
       });
   });
 
-  it.skip('List all reservations', () => {
-    chai.request(server)
+  /**
+   * Tries to get all reservations
+   * @function
+   * @name sendGetRequest
+   * @returns {Promise} A promise that resolves to the response object.
+   */
+  it('List all reservations', () => {
+    chai.request('http://localhost:2323')
       .get('/reservations')
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -45,8 +65,14 @@ describe('Reservations', () => {
       });
   });
 
-  it.skip('Update a reservation', () => {
-    chai.request(server)
+  /**
+   * Tries to update a reservation
+   * @function
+   * @name sendPatchRequest
+   * @returns {Promise} A promise that resolves to the response object.
+   */
+  it('Update a reservation', () => {
+    chai.request('http://localhost:2323')
       .patch('/reservations/1', {
         body: {
           halfDay: 0,
@@ -59,8 +85,14 @@ describe('Reservations', () => {
       });
   });
 
-  it.skip('Get a reservation', () => {
-    chai.request(server)
+  /**
+   * Tries to create a new reservation
+   * @function
+   * @name sendGetRequest
+   * @returns {Promise} A promise that resolves to the response object.
+   */
+  it('Get a reservation', () => {
+    chai.request('http://localhost:2323')
       .get('/reservations/1')
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -69,8 +101,14 @@ describe('Reservations', () => {
       });
   });
 
-  it.skip('Cancel a reservation', () => {
-    chai.request(server)
+  /**
+   * Tries to cancel a reservation
+   * @function
+   * @name sendPostRequest
+   * @returns {Promise} A promise that resolves to the response object.
+   */
+  it('Cancel a reservation', () => {
+    chai.request('http://localhost:2323')
       .put('/reservations/1/cancel', {
         body: {
           cancelled: 1,

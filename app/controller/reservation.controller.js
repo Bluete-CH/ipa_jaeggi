@@ -1,7 +1,8 @@
-const Vehicle = require('../model/vehicle.model');
+const Reservation = require('../model/reservation.model');
+const include = require('../config/include');
 
 /**
- * Creates a new vehicle and send the result back
+ * Creates a new reservation and send the result back
  *
  * @function
  * @async
@@ -10,36 +11,41 @@ const Vehicle = require('../model/vehicle.model');
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.create = async (req, res) => {
+  include.verifyToken(req, res);
   let errorMessages;
   try {
     errorMessages = '';
+    if (!req.body.hasOwnProperty('parking_spot_id')) {
+      errorMessages += 'Please provide a \'parking_spot_id\' parameter. ';
+    }
     if (!req.body.hasOwnProperty('user_id')) {
       errorMessages += 'Please provide a \'user_id\' parameter. ';
     }
-    if (!req.body.hasOwnProperty('ev')) {
-      errorMessages += 'Please provide a \'ev\' parameter. ';
+    if (!req.body.hasOwnProperty('vehicle_id')) {
+      errorMessages += 'Please provide a \'vehicle_id\' parameter. ';
     }
-    if (!req.body.hasOwnProperty('license_plate_number')) {
-      errorMessages += 'Please provide a \'license_plate_number\' parameter. ';
+    if (!req.body.hasOwnProperty('date')) {
+      errorMessages += 'Please provide a \'date\' parameter. ';
     }
-    if (!req.body.hasOwnProperty('make')) {
-      errorMessages += 'Please provide a \'make\' parameter. ';
+    if (!req.body.hasOwnProperty('half_day')) {
+      errorMessages += 'Please provide a \'half_day\' parameter. ';
     }
-    if (!req.body.hasOwnProperty('model')) {
-      errorMessages += 'Please provide a \'model\' parameter. ';
+    if (!req.body.hasOwnProperty('am')) {
+      errorMessages += 'Please provide a \'am\' parameter. ';
     }
     if (errorMessages.length > 0) {
       // got some errors; returning early
       res.status(500).send({ message: `Some errors occurred: ${errorMessages}` });
       return;
     }
-    const result = await Vehicle.create(
+    const result = await Reservation.create(
       {
+        parking_spot_id: req.body.parking_spot_id,
         user_id: req.body.user_id,
-        ev: req.body.ev,
-        license_plate_number: req.body.license_plate_number,
-        make: req.body.make,
-        model: req.body.model,
+        vehicle_id: req.body.vehicle_id,
+        date: req.body.date,
+        half_day: req.body.half_day,
+        am: req.body.am,
       },
     );
     res.send({ message: result, status: true });
@@ -49,7 +55,7 @@ exports.create = async (req, res) => {
 };
 
 /**
- * Get all vehicles and send the result back
+ * Get all reservations and send the result back
  *
  * @function
  * @async
@@ -58,8 +64,9 @@ exports.create = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.getAll = async (req, res) => {
+  include.verifyToken(req, res);
   try {
-    const result = await Vehicle.getAll();
+    const result = await Reservation.getAll();
     res.send({ message: result, status: true });
   } catch (e) {
     res.status(500).send({ message: e, status: false });
@@ -67,46 +74,51 @@ exports.getAll = async (req, res) => {
 };
 
 /**
- * Updates a vehicle by ID and send the result back
+ * Updates a reservation by ID and send the result back
  *
  * @function
  * @async
- * @param {object} req - The request object from express with a vehicle ID
+ * @param {object} req - The request object from express with a reservation ID
  * @param {object} res - The request object from express
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.updateById = async (req, res) => {
+  include.verifyToken(req, res);
   let errorMessages;
   try {
     errorMessages = '';
+    if (!req.body.hasOwnProperty('parking_spot_id')) {
+      errorMessages += 'Please provide a \'parking_spot_id\' parameter. ';
+    }
     if (!req.body.hasOwnProperty('user_id')) {
       errorMessages += 'Please provide a \'user_id\' parameter. ';
     }
-    if (!req.body.hasOwnProperty('ev')) {
-      errorMessages += 'Please provide a \'ev\' parameter. ';
+    if (!req.body.hasOwnProperty('vehicle_id')) {
+      errorMessages += 'Please provide a \'vehicle_id\' parameter. ';
     }
-    if (!req.body.hasOwnProperty('license_plate_number')) {
-      errorMessages += 'Please provide a \'license_plate_number\' parameter. ';
+    if (!req.body.hasOwnProperty('date')) {
+      errorMessages += 'Please provide a \'date\' parameter. ';
     }
-    if (!req.body.hasOwnProperty('make')) {
-      errorMessages += 'Please provide a \'make\' parameter. ';
+    if (!req.body.hasOwnProperty('half_day')) {
+      errorMessages += 'Please provide a \'half_day\' parameter. ';
     }
-    if (!req.body.hasOwnProperty('model')) {
-      errorMessages += 'Please provide a \'model\' parameter. ';
+    if (!req.body.hasOwnProperty('am')) {
+      errorMessages += 'Please provide a \'am\' parameter. ';
     }
     if (errorMessages.length > 0) {
       // got some errors; returning early
       res.status(500).send({ message: `Some errors occurred: ${errorMessages}` });
       return;
     }
-    const result = await Vehicle.updateById(
+    const result = await Reservation.updateById(
       req.params.id,
       {
+        parking_spot_id: req.body.parking_spot_id,
         user_id: req.body.user_id,
-        ev: req.body.ev,
-        license_plate_number: req.body.license_plate_number,
-        make: req.body.make,
-        model: req.body.model,
+        vehicle_id: req.body.vehicle_id,
+        date: req.body.date,
+        half_day: req.body.half_day,
+        am: req.body.am,
       },
     );
     res.send({ message: result, status: true });
@@ -116,17 +128,18 @@ exports.updateById = async (req, res) => {
 };
 
 /**
- * Finds a vehicle by ID and send the result back
+ * Finds a reservation by ID and send the result back
  *
  * @function
  * @async
- * @param {object} req - The request object from express with a vehicle ID
+ * @param {object} req - The request object from express with a reservation ID
  * @param {object} res - The request object from express
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.findById = async (req, res) => {
+  include.verifyToken(req, res);
   try {
-    const result = await Vehicle.findById(req.params.id);
+    const result = await Reservation.findById(req.params.id);
     res.send({ message: result, status: true });
   } catch (e) {
     res.status(500).send({ message: e, status: false });
@@ -134,17 +147,18 @@ exports.findById = async (req, res) => {
 };
 
 /**
- * Deletes a vehicle by ID and send the result back
+ * Cancels a reservation by ID and send the result back
  *
  * @function
  * @async
- * @param {object} req - The request object from express with a vehicle ID
+ * @param {object} req - The request object from express with a reservation ID
  * @param {object} res - The request object from express
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
-exports.delete = async (req, res) => {
+exports.cancelById = async (req, res) => {
+  include.verifyToken(req, res);
   try {
-    const result = await Vehicle.delete(req.params.id);
+    const result = await Reservation.cancelById(req.params.id);
     res.send({ message: result, status: true });
   } catch (e) {
     res.status(500).send({ message: e, status: false });

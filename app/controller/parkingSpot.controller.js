@@ -1,4 +1,5 @@
 const ParkingSpot = require('../model/parkingSpot.model');
+const include = require('../config/include');
 
 /**
  * Creates a new parking spot and send the result back
@@ -10,6 +11,7 @@ const ParkingSpot = require('../model/parkingSpot.model');
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.create = async (req, res) => {
+  include.verifyToken(req, res);
   let errorMessages;
   try {
     errorMessages = '';
@@ -46,6 +48,7 @@ exports.create = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.getAll = async (req, res) => {
+  include.verifyToken(req, res);
   try {
     const result = await ParkingSpot.getAll();
     res.send({ message: result, status: true });
@@ -64,6 +67,7 @@ exports.getAll = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.findByDate = async (req, res) => {
+  include.verifyToken(req, res);
   try {
     const result = await ParkingSpot.findByDate(
       {
@@ -88,6 +92,7 @@ exports.findByDate = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.findToday = async (req, res) => {
+  include.verifyToken(req, res);
   try {
     const result = await ParkingSpot.findToday();
     res.send({ message: result, status: true });
@@ -106,6 +111,7 @@ exports.findToday = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.updateById = async (req, res) => {
+  include.verifyToken(req, res);
   let errorMessages;
   try {
     errorMessages = '';
@@ -143,6 +149,7 @@ exports.updateById = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.findById = async (req, res) => {
+  include.verifyToken(req, res);
   try {
     const result = await ParkingSpot.findById(req.params.id);
     res.send({ message: result, status: true });
@@ -161,6 +168,7 @@ exports.findById = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.delete = async (req, res) => {
+  include.verifyToken(req, res);
   try {
     const result = await ParkingSpot.delete(req.params.id);
     res.send({ message: result, status: true });
@@ -179,6 +187,7 @@ exports.delete = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.setUnavailable = async (req, res) => {
+  include.verifyToken(req, res);
   try {
     const result = await ParkingSpot.setUnavailable(req.params.id);
     res.send({ message: result, status: true });
@@ -197,6 +206,7 @@ exports.setUnavailable = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.setAvailable = async (req, res) => {
+  include.verifyToken(req, res);
   try {
     const result = await ParkingSpot.setAvailable(req.params.id);
     res.send({ message: result, status: true });

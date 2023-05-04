@@ -45,5 +45,5 @@ module.exports = (app) => {
    */
   router.delete('/:id', vehicle.delete);
 
-  app.use('api/vehicles', router);
+  app.use('/api/vehicles', router);
 };

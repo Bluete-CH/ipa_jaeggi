@@ -52,5 +52,5 @@ module.exports = (app) => {
    */
   router.put('/:id/enable', user.enableUser);
 
-  app.use('api/users', router);
+  app.use('/api/users', router);
 };

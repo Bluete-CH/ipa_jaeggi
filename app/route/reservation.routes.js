@@ -41,5 +41,5 @@ module.exports = (app) => {
    */
   router.put('/:id/cancel', reservation.cancelById);
 
-  app.use('api/reservations', router);
+  app.use('/api/reservations', router);
 };

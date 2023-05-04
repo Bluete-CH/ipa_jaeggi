@@ -73,5 +73,5 @@ module.exports = (app) => {
    */
   router.put('/:id/set_available', parkingSpot.setAvailable);
 
-  app.use('api/parking-spots', router);
+  app.use('/api/parking-spots', router);
 };
