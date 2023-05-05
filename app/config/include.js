@@ -2,20 +2,21 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
-const jwtSecret = fs.readFileSync('/Users/jjaggi/Desktop/jwtSecret.txt').toString();
+const jwtSecret = fs.readFileSync('./.secret/jwtSecret.txt').toString().trim();
 
-/**
- * Getting the JWT
- * @type {{verifyToken: ((function(*, *): (*|undefined))|*), jwtSecret: string}}
- */
 module.exports = {
+  /**
+   * @param req
+   * @param res
+   * @returns {string}
+   */
   verifyToken(req, res) {
     const token = req.cookies.jwt;
+    let userId;
 
     if (!token) {
-      return res.status(401).end();
+      res.status(401).end();
     }
-
     let data;
     try {
       // Parse the JWT string and store the result in `payload`.
@@ -23,15 +24,17 @@ module.exports = {
       // if the token is invalid (if it has expired according to the expiry time we set on sign in),
       // or if the signature does not match
       data = jwt.verify(token, jwtSecret);
-      return data.userId;
+      userId = data.userId;
     } catch (e) {
       if (e instanceof jwt.JsonWebTokenError) {
         // if the error thrown is because the JWT is unauthorized, return a 401 error
-        return res.status(401).end();
+        res.status(401).end();
       }
       // otherwise, return a bad request error
-      return res.status(400).end();
+      res.status(400).end();
     }
+
+    return `${userId}`;
   },
   jwtSecret,
 };
