@@ -82,9 +82,28 @@ auf "nicht verfügbar" (einschließlich eines optionalen Grunds für die Nichtve
 - Alle Datums-/Uhrzeitangaben müssen im UTC / ISO 8601-Vollzeitformat persistiert werden.
 
 ### Installation
+Node Packages installieren:
 ```
 npm install
 ```
+
+Datenbank anlegen:
+```
+mysql> CREATE DATABASE ipa CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Mysql.dump in lokale Datenbank laden:
+```
+mysql -u root ipa < dump.sql
+```
+
+Server starten:
+```
+npm start
+```
+
+5.2.	Umgebung
+
 
 ### Server starten
 ```
