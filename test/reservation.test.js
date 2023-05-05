@@ -7,6 +7,8 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
+const TOKEN = require('./tokens');
+
 /**
  * Tests the API endpoint reservations.
  * @function
@@ -24,7 +26,7 @@ describe('Reservations', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Create a new reservation', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .post('/reservations', {
         body: {
           cancelled: 0,
@@ -56,8 +58,9 @@ describe('Reservations', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('List all reservations', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .get('/reservations')
+      .set('Cookie', `jwt=${TOKEN.admin}`)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body).to.be.a('array');
@@ -72,7 +75,7 @@ describe('Reservations', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Update a reservation', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .patch('/reservations/1', {
         body: {
           halfDay: 0,
@@ -92,7 +95,7 @@ describe('Reservations', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Get a reservation', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .get('/reservations/1')
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -108,7 +111,7 @@ describe('Reservations', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Cancel a reservation', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .put('/reservations/1/cancel', {
         body: {
           cancelled: 1,

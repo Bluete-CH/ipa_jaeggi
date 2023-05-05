@@ -1,6 +1,6 @@
 const ParkingSpot = require('../model/parkingSpot.model');
 const include = require('../config/include');
-const User = require("../model/user.model");
+const User = require('../model/user.model');
 
 /**
  * Creates a new parking spot and send the result back

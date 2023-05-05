@@ -7,6 +7,8 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
+const TOKEN = require('./tokens');
+
 /**
  * Tests the API endpoint parkingSpots
  * @function
@@ -28,7 +30,7 @@ describe('Parking Spots', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Create a new parking spot', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .post('/parking-spots', {
         body: {
           number: 50,
@@ -52,8 +54,9 @@ describe('Parking Spots', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Get all parking spots', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .get('/parking-spots')
+      .set('Cookie', `jwt=${TOKEN.admin}`)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body).to.be.a('array');
@@ -68,7 +71,7 @@ describe('Parking Spots', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Get available parking spots by date', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .get('/parking-spots/availability')
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -83,7 +86,7 @@ describe('Parking Spots', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('List parking spots and any reservations + vehicles on today\'s date', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .get('/parking-spot/today')
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -98,7 +101,7 @@ describe('Parking Spots', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Update parking spot', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .patch('/parking-spots/1', {
         body: {
           number: 6,
@@ -120,7 +123,7 @@ describe('Parking Spots', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Get a parking spot', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .get('/parking-spots/1')
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -136,7 +139,7 @@ describe('Parking Spots', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Remove a parking spot', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .delete('/parking-spots/2')
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -150,7 +153,7 @@ describe('Parking Spots', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Set a parking spot as unavailable', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .put('/parking-spots/1/set_unavailable', {
         body: {
           unavailable: 1,
@@ -170,7 +173,7 @@ describe('Parking Spots', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Set a parking spot as available', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .put('parking-spot/1/set_available', {
         body: {
           unavailable: 0,

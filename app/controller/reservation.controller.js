@@ -1,6 +1,6 @@
 const Reservation = require('../model/reservation.model');
 const include = require('../config/include');
-const User = require("../model/user.model");
+const User = require('../model/user.model');
 
 /**
  * Creates a new reservation and send the result back
