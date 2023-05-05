@@ -22,7 +22,7 @@ module.exports = (app) => {
    *
    * @function
    */
-  router.patch('/users/:id', user.updateById);
+  router.patch('/:id', user.updateById);
 
   /**
    * Finds a user by ID

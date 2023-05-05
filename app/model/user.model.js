@@ -104,7 +104,7 @@ User.findById = (id) => new Promise((resolve, reject) => {
       }
       if (res.length) {
         console.log('found user: ', res[0]);
-        resolve(res);
+        resolve(res[0]);
       }
     },
   );

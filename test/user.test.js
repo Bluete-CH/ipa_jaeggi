@@ -7,6 +7,8 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
+const TOKEN = require('./tokens');
+
 /**
  * Tests the API endpoint users.
  * @function
@@ -27,6 +29,7 @@ describe('Users', () => {
        */
     chai.request('http://localhost:2323/api')
       .get('/users')
+      .set('Cookie', `jwt=${TOKEN.admin}`)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body).to.be.a('array');
@@ -65,7 +68,6 @@ describe('Users', () => {
       .get('/users/1')
       .end((err, res) => {
         expect(res.status).to.equal(200);
-        expect(res.body).to.be.a('array');
         expect(res.body.length).to.equal(1);
       });
   });
@@ -78,15 +80,15 @@ describe('Users', () => {
    */
   it('Change the role of a user', () => {
     chai.request('http://localhost:2323/api')
-      .put('/users/1/change_role', {
+      .put('/users/2/change_role', {
         body: {
-          role: 'admin',
+          role: 'user',
         },
       })
       .end((err, res) => {
         expect(res.status).to.equal(200);
         const json = res.body;
-        expect(json.role).to.equal('admin');
+        expect(json.role).to.equal('user');
       });
   });
 
@@ -98,7 +100,7 @@ describe('Users', () => {
    */
   it('Disable a user', () => {
     chai.request('http://localhost:2323/api')
-      .put('/users/1/disable', {
+      .put('/users/2/disable', {
         body: {
           disabled: 1,
         },
@@ -118,7 +120,7 @@ describe('Users', () => {
    */
   it('Enable a user', () => {
     chai.request('http://localhost:2323/api')
-      .put('/users/1/enable', {
+      .put('/users/2/enable', {
         body: {
           disabled: 0,
         },

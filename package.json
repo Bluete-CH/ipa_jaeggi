@@ -13,11 +13,11 @@
   "homepage": "https://github.com/bluete-ch/ipa_jaeggi#readme",
   "license": "Apache 2.0",
   "scripts": {
-    "docs": "server/node_modules/.bin/redocly build-docs ./node_modules/@berufsbildung-basel/parkit-spec/api.yml -o app/docs/index.html",
-    "docs:serve": "server/node_modules/.bin/redocly preview-docs ./node_modules/@berufsbildung-basel/parkit-spec/api.yml",
+    "docs": "node_modules/.bin/redocly build-docs ./node_modules/@berufsbildung-basel/parkit-spec/api.yml -o app/docs/index.html",
+    "docs:serve": "node_modules/.bin/redocly preview-docs ./node_modules/@berufsbildung-basel/parkit-spec/api.yml",
     "lint": "node_modules/.bin/eslint ..",
     "start": "node index.js",
-    "test": "server/node_modules/.bin/nyc mocha --timeout 10000"
+    "test": "node_modules/.bin/nyc mocha --timeout 10000"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",

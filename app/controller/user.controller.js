@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const bcrypt = require('bcryptjs');
 const User = require('../model/user.model');
-const jwt = require('../config/include');
+const include = require('../config/include');
 
 /**
  * Login the user in
@@ -39,7 +39,7 @@ exports.login = async (req, res) => {
     if (validPassword) {
       const maxAge = 3 * 60 * 60;
 
-      const token = jwt.sign(
+      const token = include.sign(
         { userId: user[0].userId, username },
         include.jwtSecret,
         {
@@ -70,8 +70,19 @@ exports.login = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.getAll = async (req, res) => {
-  include.verifyToken(req, res);
+  const userId = include.verifyToken(req, res);
+  if (!userId) {
+    return;
+  }
+
   try {
+    const user = await User.findById(userId);
+
+    if (user.role !== 'admin') {
+      res.status(403).send({ message: 'Unauthorized' });
+      return;
+    }
+
     const result = await User.getAll();
     res.status(200).send({ message: result, status: true });
   } catch (e) {
@@ -89,9 +100,20 @@ exports.getAll = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.updateById = async (req, res) => {
-  include.verifyToken(req, res);
+  const userId = include.verifyToken(req, res);
+  if (!userId) {
+    return;
+  }
+
   let errorMessages;
   try {
+    const user = await User.findById(userId);
+
+    if (user.role !== 'admin' || userId !== req.params.id) {
+      res.status(403).send({ message: 'Unauthorized' });
+      return;
+    }
+
     errorMessages = '';
     if (!req.body.hasOwnProperty('preferred_language')) {
       errorMessages += 'Please provide a \'preferred_language\' parameter. ';
@@ -123,8 +145,19 @@ exports.updateById = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.findById = async (req, res) => {
-  include.verifyToken(req, res);
+  const userId = include.verifyToken(req, res);
+  if (!userId) {
+    return;
+  }
+
   try {
+    const user = await User.findById(userId);
+
+    if (user.role !== 'admin' || req.params.id !== userId) {
+      res.status(403).send({ message: 'Unauthorized' });
+      return;
+    }
+
     const result = await User.findById(req.params.id);
     res.send({ message: result, status: true });
   } catch (e) {
@@ -142,9 +175,20 @@ exports.findById = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.changeRole = async (req, res) => {
-  include.verifyToken(req, res);
+  const userId = include.verifyToken(req, res);
+  if (!userId) {
+    return;
+  }
+
   let errorMessages;
   try {
+    const user = await User.findById(userId);
+
+    if (user.role !== 'admin') {
+      res.status(403).send({ message: 'Unauthorized' });
+      return;
+    }
+
     errorMessages = '';
     if (!req.body.hasOwnProperty('role')) {
       errorMessages += 'Please provide a \'role\' parameter. ';
@@ -176,8 +220,19 @@ exports.changeRole = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.disableUser = async (req, res) => {
-  include.verifyToken(req, res);
+  const userId = include.verifyToken(req, res);
+  if (!userId) {
+    return;
+  }
+
   try {
+    const user = await User.findById(userId);
+
+    if (user.role !== 'admin') {
+      res.status(403).send({ message: 'Unauthorized' });
+      return;
+    }
+
     const result = await User.disableUser(req.params.id);
     res.send({ message: result, status: true });
   } catch (e) {
@@ -195,8 +250,19 @@ exports.disableUser = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.enableUser = async (req, res) => {
-  include.verifyToken(req, res);
+  const userId = include.verifyToken(req, res);
+  if (!userId) {
+    return;
+  }
+
   try {
+    const user = await User.findById(userId);
+
+    if (user.role !== 'admin') {
+      res.status(403).send({ message: 'Unauthorized' });
+      return;
+    }
+
     const result = await User.enableUser(req.params.id);
     res.send({ message: result, status: true });
   } catch (e) {

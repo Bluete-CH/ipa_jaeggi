@@ -1,5 +1,6 @@
 const ParkingSpot = require('../model/parkingSpot.model');
 const include = require('../config/include');
+const User = require("../model/user.model");
 
 /**
  * Creates a new parking spot and send the result back
@@ -11,9 +12,19 @@ const include = require('../config/include');
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.create = async (req, res) => {
-  include.verifyToken(req, res);
+  const userId = include.verifyToken(req, res);
+  if (!userId) {
+    return;
+  }
   let errorMessages;
   try {
+    const user = await User.findById(userId);
+
+    if (user.role !== 'admin') {
+      res.status(403).send({ message: 'Unauthorized' });
+      return;
+    }
+
     errorMessages = '';
     if (!req.body.hasOwnProperty('number')) {
       errorMessages += 'Please provide a \'number\' parameter. ';

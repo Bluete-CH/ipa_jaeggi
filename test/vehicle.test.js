@@ -7,6 +7,8 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
+const TOKEN = require('./tokens');
+
 /**
  * Tests the API endpoint vehicles.
  * @function
@@ -24,7 +26,7 @@ describe('Vehicles', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Create a new vehicle', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .post('/vehicles', {
         body: {
           ev: 0,
@@ -52,8 +54,9 @@ describe('Vehicles', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('List all vehicles by userId', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .get('/vehicles')
+      .set('Cookie', `jwt=${TOKEN.admin}`)
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body).to.a.be('array');
@@ -68,7 +71,7 @@ describe('Vehicles', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Update a vehicle', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .patch('/vehicles/1', {
         body: {
           ev: 1,
@@ -88,7 +91,7 @@ describe('Vehicles', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Get a vehicle', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .get('/vehicles/1')
       .end((err, res) => {
         expect(res.status).to.equal(200);
@@ -104,7 +107,7 @@ describe('Vehicles', () => {
    * @returns {Promise} A promise that resolves to the response object.
    */
   it('Delete a vehicle', () => {
-    chai.request('http://localhost:2323')
+    chai.request('http://localhost:2323/api')
       .delete('/vehicles/1')
       .end((err, res) => {
         expect(res.status).to.equal(200);

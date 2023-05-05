@@ -1,5 +1,6 @@
 const Reservation = require('../model/reservation.model');
 const include = require('../config/include');
+const User = require("../model/user.model");
 
 /**
  * Creates a new reservation and send the result back
@@ -83,7 +84,11 @@ exports.getAll = async (req, res) => {
  * @returns {Promise<void>} - A Promise object waiting for completion
  */
 exports.updateById = async (req, res) => {
-  include.verifyToken(req, res);
+  const userId = include.verifyToken(req, res);
+  if (!userId) {
+    return;
+  }
+
   let errorMessages;
   try {
     errorMessages = '';
@@ -110,6 +115,15 @@ exports.updateById = async (req, res) => {
       res.status(500).send({ message: `Some errors occurred: ${errorMessages}` });
       return;
     }
+
+    const user = await User.findById(userId);
+    const reservation = await Reservation.findById(req.params.id);
+
+    if (user.role !== 'admin' || reservation.user_id !== userId) {
+      res.status(403).send({ message: 'Unauthorized' });
+      return;
+    }
+
     const result = await Reservation.updateById(
       req.params.id,
       {
